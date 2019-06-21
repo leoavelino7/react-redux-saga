@@ -9,11 +9,7 @@ const TodoReducer = (todoList = [], action) => {
         case TodoConstants.TODO_CREATE:
             return [
                 ...todoList,
-                {
-                    id: Date.now(),
-                    isChecked: false,
-                    description: action.data.description
-                }
+                action.data.item
             ];
 
         case TodoConstants.TODO_REMOVE:

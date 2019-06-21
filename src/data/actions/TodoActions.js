@@ -14,16 +14,22 @@ export const list = () => {
             data: {
                 todoList
             }
-        })
+        });
     }
 }
 
 export const create = description => {
-    return {
-        type: TODO_CREATE,
-        data: {
-            description
-        }
+    return async dispatch => {
+        const item = await TodoService.create({
+            description,
+            isChecked: false
+        });
+        dispatch({
+            type: TODO_CREATE,
+            data: {
+                item
+            }
+        });
     };
 };
 export const update = item => {
