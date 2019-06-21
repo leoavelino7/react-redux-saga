@@ -3,22 +3,26 @@ import {
 } from "../services/TodoService";
 
 export const TODO_LIST = "TODO_LIST",
+    TODO_LIST_RESPONSE = "TODO_LIST_RESPONSE",
     TODO_CREATE = "TODO_CREATE",
     TODO_UPDATE = "TODO_UPDATE",
     TODO_REMOVE = "TODO_REMOVE",
     TODO_CLEAR = "TODO_CLEAR";
 
 export const list = () => {
-    return async dispatch => {
-        const todoList = await TodoService.list();
-        dispatch({
-            type: TODO_LIST,
-            data: {
-                todoList
-            }
-        });
+    return {
+        type: TODO_LIST
     }
-}
+};
+
+export const listResponse = todoList => {
+    return {
+        type: TODO_LIST_RESPONSE,
+        data: {
+            todoList
+        }
+    }
+};
 
 export const create = description => {
     return async dispatch => {
