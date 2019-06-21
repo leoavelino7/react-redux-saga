@@ -28,9 +28,6 @@ const TodoReducer = (todoList = [], action) => {
                 return item;
             })
 
-        case TodoConstants.TODO_CLEAR:
-            return todoList.filter(item => !item.isChecked);
-
         default:
             return todoList;
     }

@@ -2,7 +2,8 @@ import {
     all,
     put,
     takeEvery,
-    takeLatest
+    takeLatest,
+    select
 } from "redux-saga/effects";
 
 import {
@@ -38,6 +39,18 @@ function* remove({
     yield TodoService.remove(itemId);
 }
 
+function* clear() {
+    const state = yield select(),
+        todoList = state.TodoReducer;
+
+    const newTodoList = todoList.filter(item => !item.isChecked),
+        toRemove = todoList.filter(item => item.isChecked);
+
+    toRemove.forEach(item => TodoService.remove(item.id));
+    yield put(TodoActions.listResponse(newTodoList));
+}
+
+
 // Watcher's
 function* watchListAll() {
     yield takeLatest(TodoActions.TODO_LIST, listAll);
@@ -51,10 +64,15 @@ function* watchRemove() {
     yield takeEvery(TodoActions.TODO_REMOVE, remove);
 }
 
+function* watchClear() {
+    yield takeLatest(TodoActions.TODO_CLEAR, clear);
+}
+
 export default function* TodoSaga() {
     yield all([
         watchListAll(),
         watchCreate(),
-        watchRemove()
+        watchRemove(),
+        watchClear()
     ]);
 }
