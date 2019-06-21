@@ -1,4 +1,6 @@
-import { TodoService } from "../services/TodoService";
+import {
+    TodoService
+} from "../services/TodoService";
 
 export const TODO_LIST = "TODO_LIST",
     TODO_CREATE = "TODO_CREATE",
@@ -41,13 +43,17 @@ export const update = item => {
     };
 };
 export const remove = itemId => {
-    return {
-        type: TODO_REMOVE,
-        data: {
-            itemId
-        }
-    };
+    return async dispatch => {
+        await TodoService.remove(itemId);
+        dispatch({
+            type: TODO_REMOVE,
+            data: {
+                itemId
+            }
+        })
+    }
 };
+
 export const clear = () => {
     return {
         type: TODO_CLEAR
