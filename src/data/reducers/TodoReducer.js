@@ -6,10 +6,10 @@ const TodoReducer = (todoList = [], action) => {
         case TodoConstants.TODO_LIST_RESPONSE:
             return action.data.todoList;
 
-        case TodoConstants.TODO_CREATE:
+        case TodoConstants.TODO_CREATE_RESPONSE:
             return [
                 ...todoList,
-                action.data.item
+                action.data.newItem
             ];
 
         case TodoConstants.TODO_REMOVE:
