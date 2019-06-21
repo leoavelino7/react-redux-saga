@@ -11,15 +11,15 @@ import './App.css';
 class App extends Component {
   render() {
     const { props } = this,
-      { dispatch } = props;
+      { dispatch, todoList } = props;
 
     return (
       <div className="App">
-          <NewTodoItem onAdd={(description) => {dispatch(TodoActions.create(description))} }/>
+          <NewTodoItem onAdd={(description) => { dispatch(TodoActions.create(description)) }}/>
           <hr />
-          <button className="tw-btn" onClick={() => { dispatch(TodoActions.clear())}}>Limpar</button>
+          <button className="tw-btn" onClick={() => { dispatch(TodoActions.clear()) }}>Limpar</button>
           <hr />
-          <TodoList items={props.todoList} onRemove={(itemId) => { dispatch(TodoActions.remove(itemId)) }} onUpdate={(item) => { dispatch(TodoActions.update(item))}} />
+          <TodoList items={todoList} onRemove={(itemId) => { dispatch(TodoActions.remove(itemId)) }} onUpdate={ (item) => { dispatch(TodoActions.update(item)) }} />
       </div>
     );
   }
