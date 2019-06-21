@@ -55,7 +55,17 @@ export const remove = itemId => {
 };
 
 export const clear = () => {
-    return {
-        type: TODO_CLEAR
+    console.time("Initial");
+    return (dispatch, getState) => {
+        const todoList = getState().TodoReducer;
+        todoList.forEach(item => {
+            if(item.isChecked){
+                TodoService.remove(item.id);
+            }
+        })
+        console.timeEnd("Initial");
+        dispatch({
+            type: TODO_CLEAR
+        });
     };
 }
