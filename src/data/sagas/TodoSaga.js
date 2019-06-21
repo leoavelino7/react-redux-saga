@@ -1,6 +1,13 @@
-import { all, put, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+    all,
+    put,
+    takeEvery,
+    takeLatest
+} from "redux-saga/effects";
 
-import { TodoService } from "../services/TodoService";
+import {
+    TodoService
+} from "../services/TodoService";
 import * as TodoActions from "../actions/TodoActions";
 
 // Worker's
@@ -9,8 +16,12 @@ function* listAll() {
     yield put(TodoActions.listResponse(todoList));
 }
 
-function* create({data}) {
-    const { description } = data;
+function* create({
+    data
+}) {
+    const {
+        description
+    } = data;
     const newItem = yield TodoService.create({
         description,
         isChecked: false
@@ -18,18 +29,32 @@ function* create({data}) {
     yield put(TodoActions.createResponse(newItem));
 }
 
+function* remove({
+    data
+}) {
+    const {
+        itemId
+    } = data;
+    yield TodoService.remove(itemId);
+}
+
 // Watcher's
 function* watchListAll() {
     yield takeLatest(TodoActions.TODO_LIST, listAll);
 }
 
-function* watchCreate(){
+function* watchCreate() {
     yield takeEvery(TodoActions.TODO_CREATE, create);
+}
+
+function* watchRemove() {
+    yield takeEvery(TodoActions.TODO_REMOVE, remove);
 }
 
 export default function* TodoSaga() {
     yield all([
         watchListAll(),
-        watchCreate()
+        watchCreate(),
+        watchRemove()
     ]);
 }

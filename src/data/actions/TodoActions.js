@@ -2,13 +2,13 @@ import {
     TodoService
 } from "../services/TodoService";
 
-export const TODO_LIST      = "TODO_LIST",
-    TODO_LIST_RESPONSE      = "TODO_LIST_RESPONSE",
-    TODO_CREATE             = "TODO_CREATE",
-    TODO_CREATE_RESPONSE    = "TODO_CREATE_RESPONSE",
-    TODO_UPDATE             = "TODO_UPDATE",
-    TODO_REMOVE             = "TODO_REMOVE",
-    TODO_CLEAR              = "TODO_CLEAR";
+export const TODO_LIST = "TODO_LIST",
+    TODO_LIST_RESPONSE = "TODO_LIST_RESPONSE",
+    TODO_CREATE = "TODO_CREATE",
+    TODO_CREATE_RESPONSE = "TODO_CREATE_RESPONSE",
+    TODO_UPDATE = "TODO_UPDATE",
+    TODO_REMOVE = "TODO_REMOVE",
+    TODO_CLEAR = "TODO_CLEAR";
 
 export const list = () => {
     return {
@@ -56,14 +56,11 @@ export const update = item => {
 };
 
 export const remove = itemId => {
-    return async dispatch => {
-        await TodoService.remove(itemId);
-        dispatch({
-            type: TODO_REMOVE,
-            data: {
-                itemId
-            }
-        })
+    return {
+        type: TODO_REMOVE,
+        data: {
+            itemId
+        }
     }
 };
 
