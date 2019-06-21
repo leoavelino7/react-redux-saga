@@ -34,14 +34,19 @@ export const create = description => {
         });
     };
 };
+
 export const update = item => {
-    return {
-        type: TODO_UPDATE,
-        data: {
-            item
-        }
-    };
+    return async dispatch => {
+        await TodoService.update(item);
+        dispatch({
+            type: TODO_UPDATE,
+            data: {
+                item
+            }
+        })
+    }
 };
+
 export const remove = itemId => {
     return async dispatch => {
         await TodoService.remove(itemId);
@@ -55,15 +60,13 @@ export const remove = itemId => {
 };
 
 export const clear = () => {
-    console.time("Initial");
     return (dispatch, getState) => {
         const todoList = getState().TodoReducer;
         todoList.forEach(item => {
-            if(item.isChecked){
+            if (item.isChecked) {
                 TodoService.remove(item.id);
             }
         })
-        console.timeEnd("Initial");
         dispatch({
             type: TODO_CLEAR
         });
