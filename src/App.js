@@ -9,6 +9,10 @@ import TodoList from "./views/components/TodoList";
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(TodoActions.list());
+  }
+
   render() {
     const { props } = this,
       { dispatch, todoList } = props;

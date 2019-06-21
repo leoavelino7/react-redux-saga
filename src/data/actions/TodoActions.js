@@ -1,7 +1,22 @@
-export const TODO_CREATE = "TODO_CREATE",
+import { TodoService } from "../services/TodoService";
+
+export const TODO_LIST = "TODO_LIST",
+    TODO_CREATE = "TODO_CREATE",
     TODO_UPDATE = "TODO_UPDATE",
     TODO_REMOVE = "TODO_REMOVE",
     TODO_CLEAR = "TODO_CLEAR";
+
+export const list = () => {
+    return async dispatch => {
+        const todoList = await TodoService.list();
+        dispatch({
+            type: TODO_LIST,
+            data: {
+                todoList
+            }
+        })
+    }
+}
 
 export const create = description => {
     return {
