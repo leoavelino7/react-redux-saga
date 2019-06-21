@@ -39,6 +39,11 @@ function* remove({
     yield TodoService.remove(itemId);
 }
 
+function* update({data}) {
+    const {item} = data;
+    yield TodoService.update(item);
+}
+
 function* clear() {
     const state = yield select(),
         todoList = state.TodoReducer;
@@ -49,7 +54,6 @@ function* clear() {
     toRemove.forEach(item => TodoService.remove(item.id));
     yield put(TodoActions.listResponse(newTodoList));
 }
-
 
 // Watcher's
 function* watchListAll() {
@@ -64,6 +68,10 @@ function* watchRemove() {
     yield takeEvery(TodoActions.TODO_REMOVE, remove);
 }
 
+function* watchUpdate() {
+    yield takeEvery(TodoActions.TODO_UPDATE, update);
+}
+
 function* watchClear() {
     yield takeLatest(TodoActions.TODO_CLEAR, clear);
 }
@@ -73,6 +81,7 @@ export default function* TodoSaga() {
         watchListAll(),
         watchCreate(),
         watchRemove(),
+        watchUpdate(),
         watchClear()
     ]);
 }

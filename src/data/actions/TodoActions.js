@@ -44,15 +44,12 @@ export const createResponse = newItem => {
 };
 
 export const update = item => {
-    return async dispatch => {
-        await TodoService.update(item);
-        dispatch({
-            type: TODO_UPDATE,
-            data: {
-                item
-            }
-        })
-    }
+    return {
+        type: TODO_UPDATE,
+        data: {
+            item
+        }
+    };
 };
 
 export const remove = itemId => {
