@@ -1,7 +1,3 @@
-import {
-    TodoService
-} from "../services/TodoService";
-
 export const TODO_LIST = "TODO_LIST",
     TODO_LIST_RESPONSE = "TODO_LIST_RESPONSE",
     TODO_CREATE = "TODO_CREATE",
