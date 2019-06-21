@@ -19,7 +19,7 @@ class App extends Component {
           <hr />
           <button className="tw-btn" onClick={TodoActions.clear}>Limpar</button>
           <hr />
-          <TodoList items={props.todoList} onRemove={TodoActions.remove} onUpdate={TodoActions.update} />
+          <TodoList items={props.todoList} onRemove={(itemId) => { dispatch(TodoActions.remove(itemId)) }} onUpdate={TodoActions.update} />
       </div>
     );
   }
