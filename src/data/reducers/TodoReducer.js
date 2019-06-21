@@ -15,7 +15,7 @@ const TodoReducer = (todoList = [], action) => {
 
         case TodoConstants.TODO_REMOVE:
             //return todoList.filter(item => item.id !== action.data.itemId);
-            const itemIndex = todoList.findIndex(item => item.id === itemIndex);
+            const itemIndex = todoList.findIndex(item => item.id === action.data.itemId);
             return [
                 ...todoList.slice(0, itemIndex),
                 ...todoList.slice(itemIndex + 1)
@@ -23,8 +23,8 @@ const TodoReducer = (todoList = [], action) => {
 
         case TodoConstants.TODO_UPDATE:
             return todoList.map(item => {
-                if(item.id === action.item.id) {
-                    return action.item;
+                if(item.id === action.data.item.id) {
+                    return action.data.item;
                 }
                 return item;
             })
