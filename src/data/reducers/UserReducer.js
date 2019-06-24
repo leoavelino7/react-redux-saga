@@ -4,11 +4,15 @@ const UserReducer = (access = false, action) => {
 
     switch (action.type) {
         case UserActions.USER_LOGIN:
-            return action.data;
+            const { user } = action.data;
+            return {
+                user,
+                token: Date.now()
+            };
 
         case UserActions.USER_LOGOUT:
-            return access;
-
+            return false;
+            
         default:
             return access;
     }

@@ -1,6 +1,6 @@
 export const USER_LOGIN = "USER_LOGIN",
     USER_LOGOUT = "USER_LOGOUT",
-    USER_AUTHENTICATED = "USER_AUTHENTICATED";
+    USER_LOGGED = "USER_LOGGED";
 
 export const login = (user, password) => {
     return {
@@ -11,15 +11,6 @@ export const login = (user, password) => {
         }
     }
 }
-
-// export const authenticated = () => {
-//     return {
-//         type: USER_AUTHENTICATED,
-//         data: {
-//             token:
-//         }
-//     }
-// }
 
 export const logout = () => {
     return {

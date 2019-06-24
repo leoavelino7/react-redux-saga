@@ -9,32 +9,40 @@ import {
 import * as UserActions from "../actions/UserActions";
 
 // Worker's
+function* saveSession(account) {
+    const {user} = account;
+
+    yield localStorage.setItem("account", JSON.stringify({
+        user, 
+        token: Date.now()
+    }));
+}
+
 function* login({
     data
 }) {
     const accountList = yield UserService.list(),
         userIndex = accountList.findIndex(account => (account.user === data.user && account.password === data.password)),
-        user = (userIndex >= 0) ? accountList[userIndex] : null;
-    if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
+        account = (userIndex >= 0) ? accountList[userIndex] : null;
+    if (account) {
+        yield saveSession(account);
     }
     console.log("login");
-    yield user;
 }
 
 function* logout() {
-    console.log("logou");
-    yield localStorage.clear("user");
+    console.log("logout");
+    yield localStorage.clear("account");
 }
 
 // Watcher's
 function* watchLogin() {
     while (true) {
-        while (JSON.parse(localStorage.getItem("user")) == null) {
+        while (localStorage.getItem("account") == null) {
             const data = yield take(UserActions.USER_LOGIN);
             yield login(data);
         }
-        while (JSON.parse(localStorage.getItem("user")) != null) {
+        while (localStorage.getItem("account") != null) {
             yield take(UserActions.USER_LOGOUT);
             yield logout();
         }
