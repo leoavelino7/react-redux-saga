@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import * as TodoActions from "./data/actions/TodoActions";
+import * as UserActions from "./data/actions/UserActions";
 
 import NewTodoItem from "./views/components/NewTodoItem";
 import TodoList from "./views/components/TodoList";
@@ -24,6 +25,10 @@ class App extends Component {
           <button className="tw-btn" onClick={() => { dispatch(TodoActions.clear()) }}>Limpar</button>
           <hr />
           <TodoList items={todoList} onRemove={(itemId) => { dispatch(TodoActions.remove(itemId)) }} onUpdate={ (item) => { dispatch(TodoActions.update(item)) }} />
+          <hr />
+          <button className="tw-btn" onClick={() => { dispatch(UserActions.login("admin", "admin123")) }}>Login</button>
+           &nbsp;
+          <button className="tw-btn" onClick={() => { dispatch(UserActions.logout()) }}>Logout</button>
       </div>
     );
   }

@@ -26,7 +26,7 @@ const TodoReducer = (todoList = [], action) => {
                     return action.data.item;
                 }
                 return item;
-            })
+            });
 
         default:
             return todoList;

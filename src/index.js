@@ -10,12 +10,14 @@ import createSagaMiddleware from "redux-saga";
 
 import rootReducer from "./data/reducers";
 import TodoSaga from "./data/sagas/TodoSaga";
+import UserSaga from "./data/sagas/UserSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(TodoSaga);
+sagaMiddleware.run(UserSaga);
 
 ReactDOM.render(
     <Provider store={store}>
